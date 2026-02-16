@@ -12,7 +12,7 @@ from sqlalchemy.orm import Session
 
 from app.core.config import settings
 from app.core.database import get_db
-from app.models.user import User
+from backend.app.models.user import User
 from app.schemas.user import TokenData
 
 # Парол контексти
