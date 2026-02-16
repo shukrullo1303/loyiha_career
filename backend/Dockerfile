@@ -14,6 +14,8 @@ RUN pip install --no-cache-dir pymysql bcrypt==4.0.1 passlib[bcrypt]==1.7.4
 COPY . .
 
 # Importlar ishlashi uchun yo'l
+# PYTHONPATH ni nuqta (.) qilib belgilash joriy papkani paket sifatida ko'rsatadi
 ENV PYTHONPATH=/app
 
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+# CMD buyrug'ini modul ko'rinishida yozamiz
+CMD ["python", "-m", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
