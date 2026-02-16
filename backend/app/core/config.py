@@ -57,7 +57,8 @@ class Settings(BaseSettings):
     
     # Хавфсизлик
     ENCRYPTION_KEY: str = "mZ9vS3pX6rB2nQ5tW8yU1iO4aD7fG0hJkL3mN6bV9cC"
-    ALLOWED_ORIGINS: List[str] = ["http://localhost:3000", "http://localhost:3001"]
+    # ALLOWED_ORIGINS: List[str] = ["http://localhost:3000", "http://localhost:3001"]
+    ALLOWED_ORIGINS: List[str] = ["*"]  # Production'да махсус доменлар
     
     # Логирование
     LOG_LEVEL: str = "INFO"

@@ -13,6 +13,7 @@ import Analytics from './pages/Analytics'
 import Employees from './pages/Employees'
 import Cameras from './pages/Cameras'
 import { useAuthStore } from './store/authStore'
+import Register from './pages/Register' // SHU QATORNI QO'SHING
 
 const queryClient = new QueryClient()
 
@@ -40,6 +41,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} /> {/* SHU QATORNI QO'SHING */}
             <Route
               path="/"
               element={

