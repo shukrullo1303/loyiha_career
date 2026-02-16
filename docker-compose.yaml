@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: mydatabase
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    # Baza sog'lomligini tekshirish uchun:
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-ppassword"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build: ./backend
+    # Muhim: Baza tayyor bo'lmaguncha backend kutib turadi
+    depends_on:
+      db:
+        condition: service_healthy
+    command: sh -c "uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload"
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=mysql+pymysql://root:password@db:3306/mydatabase
+    restart: on-failure # Xato bersa, o'zi qaytadan yonadi
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"   # Tashqarida ham, ichkarida ham bir xil bo'lsin
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      - VITE_API_URL=http://localhost:8000/api/v1
+      - VITE_PORT=3000 # Vite'ga aynan shu portni ishlatishni buyuramiz
+    depends_on:
+      - backend
+
+volumes:
+  db_data:

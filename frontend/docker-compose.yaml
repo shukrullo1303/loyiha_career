@@ -1,0 +1,11 @@
+version: '3'
+services:
+  frontend:
+    build: ./frontend # Frontend papkangiz manzili
+    ports:
+      - "3000:5173"   # Brauzerda localhost:3000 orqali kirasiz
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      - VITE_API_URL=http://localhost:8000/api/v1
