@@ -17,13 +17,13 @@ class Settings(BaseSettings):
     DEBUG: bool
     
     # База
-    DATABASE_URL: str
+    DATABASE_URL: str = "postgresql://user:password@localhost:5432/digital_service_db"
     
     # Redis
-    REDIS_URL: str
+    REDIS_URL: str = "redis://localhost:6379/0"
     
     # JWT
-    SECRET_KEY: str 
+    SECRET_KEY: str
     ALGORITHM: str 
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 1440
     
@@ -49,14 +49,14 @@ class Settings(BaseSettings):
     
     # Ташқи API
     TAX_API_URL: str = "https://api.tax.uz"
-    TAX_API_KEY: str
+    TAX_API_KEY: str 
     MYGOV_API_URL: str = "https://api.mygov.uz"
     MYGOV_API_KEY: str 
     KKT_API_URL: str = "https://api.kkt.uz"
     KKT_API_KEY: str 
     
     # Хавфсизлик
-    ENCRYPTION_KEY: str 
+    ENCRYPTION_KEY: str = "your-32-byte-encryption-key-here"
     ALLOWED_ORIGINS: List[str]
     
     # Логирование
