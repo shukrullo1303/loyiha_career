@@ -26,7 +26,7 @@ const Register = () => {
     
     try {
       // Backend manzili va endpointni tekshiring
-      await axios.post('http://localhost:8000/api/v1/auth/register', formData);
+      await axios.post('loyihacareer-production-d107.up.railway.app/api/v1/auth/register', formData);
       
       toast.success("Muvaffaqiyatli ro'yxatdan o'tdingiz!");
       navigate('/login');

@@ -2,7 +2,7 @@ import { create } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
 import axios from 'axios'
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api/v1'
+const API_URL = import.meta.env.VITE_API_URL;
 
 interface User {
   id: number
@@ -28,11 +28,11 @@ export const useAuthStore = create<AuthState>()(
       token: null,
       isAuthenticated: false,
       login: async (username: string, password: string) => {
-        const params = new URLSearchParams()
-        params.append('username', username)
-        params.append('password', password)
+        const formData = new FormData()
+        formData.append('username', username)
+        formData.append('password', password)
 
-        const response = await axios.post(`${API_URL}/auth/login`, params, {
+        const response = await axios.post(`${API_URL}/auth/login`, formData, {
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
           },

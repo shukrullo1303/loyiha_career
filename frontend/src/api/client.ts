@@ -1,7 +1,11 @@
+/// <reference types="vite/client" />
+
 import axios from 'axios'
 import { useAuthStore } from '../store/authStore'
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://0.0.0.0:8000/api/v1'
+
+const API_URL = import.meta.env.VITE_API_URL
+
 
 const apiClient = axios.create({
   baseURL: API_URL,

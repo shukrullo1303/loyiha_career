@@ -5,10 +5,14 @@ export default defineConfig({
   plugins: [react()],
   server: {
     port: 3000,
+    allowedHosts: [
+      'frontend-loyiha-production.up.railway.app'
+    ],
     proxy: {
       '/api': {
-        target: 'http://localhost:8000',
+        target: 'https://loyihacareer-production-d107.up.railway.app',
         changeOrigin: true
+
       }
     }
   }
