@@ -64,7 +64,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
 # Trusted Host мидлвар
 app.add_middleware(
     TrustedHostMiddleware,

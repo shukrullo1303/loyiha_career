@@ -14,17 +14,17 @@ class Settings(BaseSettings):
     # Лойиҳа
     PROJECT_NAME: str = "Digital Service Platform"
     VERSION: str = "1.0.0"
-    DEBUG: bool = True
+    DEBUG: bool
     
     # База
-    DATABASE_URL: str = "mysql+pymysql://root:Admin7700@localhost:3306/loyiha"
+    DATABASE_URL: str
     
     # Redis
-    REDIS_URL: str = "redis://localhost:6379/0"
+    REDIS_URL: str
     
     # JWT
-    SECRET_KEY: str = "7e9f8a2b5c1d4e3f6a0b9c8d7e6f5a4b3c2d1e0f9a8b7c6d5e4f3a2b1c0d9e8f"
-    ALGORITHM: str = "HS256"
+    SECRET_KEY: str 
+    ALGORITHM: str 
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 1440
     
     # AI Моделлар
@@ -36,8 +36,8 @@ class Settings(BaseSettings):
     RISK_SCORING_MODEL: str = "./models/risk_scoring_model.pkl"
     
     # Камера
-    ONVIF_USERNAME: str = "admin"
-    ONVIF_PASSWORD: str = "admin"
+    ONVIF_USERNAME: str 
+    ONVIF_PASSWORD: str 
     CAMERA_TIMEOUT: int = 30
     MAX_CAMERAS_PER_LOCATION: int = 10
     
@@ -49,16 +49,15 @@ class Settings(BaseSettings):
     
     # Ташқи API
     TAX_API_URL: str = "https://api.tax.uz"
-    TAX_API_KEY: str = ""
+    TAX_API_KEY: str
     MYGOV_API_URL: str = "https://api.mygov.uz"
-    MYGOV_API_KEY: str = ""
+    MYGOV_API_KEY: str 
     KKT_API_URL: str = "https://api.kkt.uz"
-    KKT_API_KEY: str = ""
+    KKT_API_KEY: str 
     
     # Хавфсизлик
-    ENCRYPTION_KEY: str = "mZ9vS3pX6rB2nQ5tW8yU1iO4aD7fG0hJkL3mN6bV9cC"
-    # ALLOWED_ORIGINS: List[str] = ["http://localhost:3000", "http://localhost:3001"]
-    ALLOWED_ORIGINS: List[str] = ["*"]  # Production'да махсус доменлар
+    ENCRYPTION_KEY: str 
+    ALLOWED_ORIGINS: List[str]
     
     # Логирование
     LOG_LEVEL: str = "INFO"
