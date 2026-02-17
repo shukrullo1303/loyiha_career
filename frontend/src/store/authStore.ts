@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
 import axios from 'axios'
+import apiClient from '../api/client'
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -32,7 +33,7 @@ export const useAuthStore = create<AuthState>()(
         formData.append('username', username)
         formData.append('password', password)
 
-        const response = await axios.post(`${API_URL}/auth/login`, formData, {
+        const response = await apiClient.post('/auth/login', formData, {
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
           },
@@ -41,7 +42,7 @@ export const useAuthStore = create<AuthState>()(
         const { access_token } = response.data
 
         // Фойдаланувчи маълумотларини олиш
-        const userResponse = await axios.get(`${API_URL}/auth/me`, {
+        const userResponse = await apiClient.get('/auth/me', {
           headers: {
             Authorization: `Bearer ${access_token}`,
           },
@@ -54,7 +55,7 @@ export const useAuthStore = create<AuthState>()(
         })
 
         // Axios default header
-        axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}`
+        // apiClient headers are set by interceptor
       },
       logout: () => {
         set({

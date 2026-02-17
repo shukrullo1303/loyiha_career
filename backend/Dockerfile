@@ -30,3 +30,4 @@ ENV PORT=8000
 
 # 6. Ishga tushirish (main:app emas, app.main:app bo'lishi kerak, chunki papka nomi app)
 CMD python -m uvicorn app.main:app --host 0.0.0.0 --port ${PORT}
+
