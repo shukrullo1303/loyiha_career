@@ -1,7 +1,7 @@
 """
 Ходим моделлари
 """
-from sqlalchemy import Column, Integer, String, Boolean, DateTime, ForeignKey, Text, Date
+from sqlalchemy import Column, Integer, String, Boolean, DateTime, ForeignKey, Text, Date, Float
 from sqlalchemy.orm import relationship
 from datetime import datetime
 
