@@ -11,3 +11,4 @@ export default defineConfig({
     // Proxy-ni olib tashlasangiz ham bo'ladi yoki shunday turaversin
   }
 })
+
