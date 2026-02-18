@@ -1,14 +1,15 @@
 FROM node:18-alpine
+
 WORKDIR /app
+
+# Avval faqat package fayllarni ko'chiramiz (keshdan foydalanish uchun)
 COPY package*.json ./
 RUN npm install
+
+# Qolgan barcha fayllarni ko'chiramiz
 COPY . .
 
-# 1. Loyihani build qilish
-RUN npm run build
+# Vite yoki React porti (odatda 5173 yoki 3000)
+EXPOSE 3000
 
-# 2. Statik fayllarni ishga tushirish uchun 'serve'ni o'rnatish
-RUN npm install -g serve
-
-# 3. Railway bergan portda 'dist' papkasini ishga tushirish
-CMD ["sh", "-c", "serve -s dist -l $PORT"]
+CMD ["npm", "run", "dev", "--", "--host"]
