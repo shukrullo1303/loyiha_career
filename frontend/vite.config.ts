@@ -6,7 +6,7 @@ export default defineConfig({
   server: {
     port: 3000,
     allowedHosts: [
-      'https://frontend-loyiha-production.up.railway.app'
+      'https://https://frontend-loyiha-production.up.railway.app'
     ]
     // Proxy-ni olib tashlasangiz ham bo'ladi yoki shunday turaversin
   }
