@@ -1,8 +1,6 @@
 import { create } from 'zustand'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import axios from 'axios'
-
-const API_URL = 'http://localhost:8000/api/v1'
+import apiClient from '../api/apiClient'
 
 interface User {
   id: number
@@ -30,7 +28,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     formData.append('username', username)
     formData.append('password', password)
 
-    const response = await axios.post(`${API_URL}/auth/login`, formData, {
+    const response = await apiClient.post(`/auth/login`, formData, {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
@@ -38,7 +36,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
 
     const { access_token } = response.data
 
-    const userResponse = await axios.get(`${API_URL}/auth/me`, {
+    const userResponse = await apiClient.get(`/auth/me`, {
       headers: {
         Authorization: `Bearer ${access_token}`,
       },

@@ -1,10 +1,9 @@
 import React from 'react'
 import { View, Text, StyleSheet, FlatList } from 'react-native'
 import { useQuery } from 'react-query'
-import axios from 'axios'
+import apiClient from '../api/apiClient'
 import { useAuthStore } from '../store/authStore'
 
-const API_URL = 'http://localhost:8000/api/v1'
 
 export default function LocationsScreen() {
   const { token } = useAuthStore()
@@ -12,7 +11,7 @@ export default function LocationsScreen() {
   const { data: locations } = useQuery(
     'locations',
     async () => {
-      const response = await axios.get(`${API_URL}/locations/`, {
+      const response = await apiClient.get(`/locations/`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       return response.data

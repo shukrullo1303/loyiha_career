@@ -1,6 +1,5 @@
 import { create } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
-import axios from 'axios'
 import apiClient from '../api/client'
 
 const API_URL = import.meta.env.VITE_API_URL;
@@ -54,7 +53,7 @@ export const useAuthStore = create<AuthState>()(
           isAuthenticated: true,
         })
 
-        // Axios default header
+       
         // apiClient headers are set by interceptor
       },
       logout: () => {
@@ -63,7 +62,7 @@ export const useAuthStore = create<AuthState>()(
           token: null,
           isAuthenticated: false,
         })
-        delete axios.defaults.headers.common['Authorization']
+        delete apiClient.defaults.headers.common['Authorization']
       },
       setUser: (user: User) => {
         set({ user })

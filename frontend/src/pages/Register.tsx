@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { TextField, Button, Paper, Typography, Container, Box, CircularProgress } from '@mui/material';
-import axios from 'axios';
 import { toast } from 'react-hot-toast';
+import apiClient from '../api/client';
 
 const Register = () => {
   const navigate = useNavigate();
@@ -26,7 +26,7 @@ const Register = () => {
     
     try {
       // Backend manzili va endpointni tekshiring
-      await axios.post('loyihacareer-production-d107.up.railway.app/api/v1/auth/register', formData);
+      await apiClient.post('/auth/register', formData);
       
       toast.success("Muvaffaqiyatli ro'yxatdan o'tdingiz!");
       navigate('/login');
