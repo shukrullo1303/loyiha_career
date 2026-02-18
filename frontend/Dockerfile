@@ -14,7 +14,7 @@ RUN npm run build
 RUN npm install -g serve
 
 # Railway portni o'zi beradi
-EXPOSE $PORT
+EXPOSE 3000
 
 # 'dist' papkasini Railway bergan portda ishga tushiramiz
 CMD ["sh", "-c", "serve -s dist -l $PORT"]
