@@ -19,13 +19,13 @@ function Cameras() {
   })
 
   if (isLoading) {
-    return <Typography>Юкланмоқда...</Typography>
+    return <Typography>Yuklanmoqda...</Typography>
   }
 
   return (
     <Box>
       <Typography variant="h4" gutterBottom>
-        Камералар
+        Kameralar
       </Typography>
       <Grid container spacing={3} sx={{ mt: 2 }}>
         {cameras?.map((camera: any) => (
@@ -42,7 +42,7 @@ function Cameras() {
                   </Box>
                 </Box>
                 <Chip
-                  label={camera.is_active ? 'Фаол' : 'Нофаол'}
+                  label={camera.is_active ? 'Faol' : 'Nofaol'}
                   color={camera.is_active ? 'success' : 'default'}
                   size="small"
                   sx={{ mb: 2 }}
@@ -54,7 +54,7 @@ function Cameras() {
                     // Таҳлилни бошлаш
                   }}
                 >
-                  Таҳлилни бошлаш
+                  Tahlilni boshlash
                 </Button>
               </CardContent>
             </Card>
