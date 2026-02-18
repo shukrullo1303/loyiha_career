@@ -46,7 +46,7 @@ function Dashboard() {
   return (
     <Box>
       <Typography variant="h4" gutterBottom>
-        Дашборд
+        Dashboard
       </Typography>
       <Grid container spacing={3} sx={{ mt: 2 }}>
         <Grid item xs={12} sm={6} md={3}>
@@ -56,7 +56,7 @@ function Dashboard() {
                 <LocationOn color="primary" sx={{ fontSize: 40, mr: 2 }} />
                 <Box>
                   <Typography color="textSecondary" gutterBottom>
-                    Локациялар
+                    Lokatsiyalar
                   </Typography>
                   <Typography variant="h4">
                     {analytics?.totalLocations || 0}
@@ -73,7 +73,7 @@ function Dashboard() {
                 <People color="primary" sx={{ fontSize: 40, mr: 2 }} />
                 <Box>
                   <Typography color="textSecondary" gutterBottom>
-                    Ходимлар
+                    Xodimlar
                   </Typography>
                   <Typography variant="h4">
                     {analytics?.totalEmployees || 0}
