@@ -5,11 +5,13 @@ Digital Service Platform - Main Application
 from fastapi import FastAPI, Request, Depends, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.trustedhost import TrustedHostMiddleware
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, FileResponse
+from fastapi.staticfiles import StaticFiles
 from contextlib import asynccontextmanager
 import uvicorn
 import logging
 from datetime import datetime
+import os
 
 from app.core.config import settings
 from app.core.database import engine, Base
@@ -112,6 +114,33 @@ async def health_check():
 
 # API роутерларини улаш
 app.include_router(api_router, prefix="/api/v1")
+
+
+# Frontend build (Vite) ni serve qilish
+FRONTEND_DIST = os.getenv("FRONTEND_DIST", "frontend_dist")
+
+# Vite build ichidagi assets katalogini statik qilib ulaymiz
+if os.path.isdir(os.path.join(FRONTEND_DIST, "assets")):
+    app.mount(
+        "/assets",
+        StaticFiles(directory=os.path.join(FRONTEND_DIST, "assets")),
+        name="assets",
+    )
+
+
+@app.get("/{full_path:path}")
+async def serve_spa(full_path: str):
+    """Frontend SPA uchun index.html ni qaytarish"""
+    index_path = os.path.join(FRONTEND_DIST, "index.html")
+    if os.path.exists(index_path):
+        return FileResponse(index_path)
+    # Agar build topilmasa, eski root javobini бериш
+    return {
+        "message": "Digital Service Platform API",
+        "version": "1.0.0",
+        "status": "active",
+        "timestamp": datetime.utcnow().isoformat(),
+    }
 
 
 if __name__ == "__main__":

@@ -17,10 +17,10 @@ class Settings(BaseSettings):
     DEBUG: bool
     
     # База
-    DATABASE_URL: str = "postgresql://user:password@localhost:5432/digital_service_db"
+    DATABASE_URL: str 
     
     # Redis
-    REDIS_URL: str = "redis://localhost:6379/0"
+    REDIS_URL: str 
     
     # JWT
     SECRET_KEY: str
