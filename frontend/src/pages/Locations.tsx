@@ -25,21 +25,40 @@ import {
 import { Edit, Delete, Add as AddIcon } from '@mui/icons-material'
 import apiClient from '../api/client'
 
+interface Location {
+  id: number
+  name: string
+  address: string
+  tax_id?: string | null
+  is_active: boolean
+  location_type: string
+}
+
+interface LocationFormValues {
+  name: string
+  address: string
+  tax_id?: string
+  location_type: string
+}
+
 function Locations() {
   const queryClient = useQueryClient()
   
   // Modal oynasi va tanlangan qator uchun statelar
   const [open, setOpen] = useState(false)
-  const [selectedLocation, setSelectedLocation] = useState(null)
+  const [selectedLocation, setSelectedLocation] = useState<Location | null>(null)
 
   // 1. GET - Ma'lumotlarni o'qish
-  const { data: locations, isLoading, isError } = useQuery('locations', async () => {
-    const response = await apiClient.get('/locations/')
-    return response.data
-  })
+  const { data: locations, isLoading, isError } = useQuery<Location[]>(
+    'locations',
+    async () => {
+      const response = await apiClient.get('/locations/')
+      return response.data
+    }
+  )
 
   // 2. POST (Yaratish) va PUT (Yangilash) uchun umumiy mutatsiya
-  const saveMutation = useMutation(
+  const saveMutation = useMutation<any, any, LocationFormValues>(
     (data) => {
       if (selectedLocation) {
         // Agar selectedLocation bo'lsa - PUT (Update)
@@ -54,14 +73,14 @@ function Locations() {
         queryClient.invalidateQueries('locations') // Jadvalni yangilash
         handleClose()
       },
-      onError: (err) => {
-        alert(err.response?.data?.detail || "Xatolik yuz berdi")
+      onError: (err: any) => {
+        alert(err?.response?.data?.detail || 'Xatolik yuz berdi')
       }
     }
   )
 
   // 3. DELETE - O'chirish
-  const deleteMutation = useMutation(
+  const deleteMutation = useMutation<void, any, number>(
     (id) => apiClient.delete(`/locations/${id}/`),
     {
       onSuccess: () => {
@@ -71,7 +90,7 @@ function Locations() {
   )
 
   // Modalni ochish (Yangi yoki Tahrirlash uchun)
-  const handleOpen = (location = null) => {
+  const handleOpen = (location: Location | null = null) => {
     setSelectedLocation(location)
     setOpen(true)
   }
@@ -81,16 +100,22 @@ function Locations() {
     setSelectedLocation(null)
   }
 
-  const handleDelete = (id) => {
+  const handleDelete = (id: number) => {
     if (window.confirm("Ushbu lokatsiyani o'chirishni xohlaysizmi?")) {
       deleteMutation.mutate(id)
     }
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const formData = new FormData(event.currentTarget)
-    const data = Object.fromEntries(formData.entries())
+    const raw = Object.fromEntries(formData.entries()) as Record<string, FormDataEntryValue>
+    const data: LocationFormValues = {
+      name: (raw.name as string) || '',
+      address: (raw.address as string) || '',
+      tax_id: (raw.tax_id as string) || undefined,
+      location_type: (raw.location_type as string) || 'other',
+    }
     
     // Checkbox yoki status bo'lsa shu yerda convert qilinadi
     saveMutation.mutate(data)
@@ -124,7 +149,7 @@ function Locations() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {locations?.map((loc) => (
+            {locations?.map((loc: Location) => (
               <TableRow key={loc.id} hover>
                 <TableCell>{loc.name}</TableCell>
                 <TableCell>{loc.address}</TableCell>
