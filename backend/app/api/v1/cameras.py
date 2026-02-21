@@ -76,7 +76,7 @@ async def connect_camera(
     username: Optional[str] = None,
     password: Optional[str] = None,
     current_user: User = Depends(get_current_user),
-    # location_id: int = None
+    location_id: int = None
 ):
     """Камерага уланиш"""
     result = await camera_service.connect_camera(
@@ -84,6 +84,6 @@ async def connect_camera(
         port,
         username,
         password, 
-        # location_id,
+        location_id
     )
     return result
