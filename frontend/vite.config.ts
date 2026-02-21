@@ -8,8 +8,15 @@ export default defineConfig({
     allowedHosts: [
       'frontend-loyiha-production.up.railway.app', 
       
-    ]
-    // Proxy-ni olib tashlasangiz ham bo'ladi yoki shunday turaversin
+    ],
+    proxy: {
+      '/api': {
+        target: 'https://loyihacareer-production-d107.up.railway.app',
+        changeOrigin: true,
+        secure: false,
+      },
+    },
+    // Proxy orqali dev-da CORS muammosiz ishlaydi
   }
 })
 

@@ -23,14 +23,26 @@ function Cameras() {
   const queryClient = useQueryClient()
   const [open, setOpen] = useState(false)
   const [analyzeLoadingId, setAnalyzeLoadingId] = useState<number | null>(null)
+  const [locationId, setLocationId] = useState<string>('')
 
   const { data: cameras, isLoading, isError } = useQuery('cameras', async () => {
     const response = await apiClient.get('/cameras/')
     return response.data
   })
 
+  const { data: locations } = useQuery('locations', async () => {
+    const response = await apiClient.get('/locations/')
+    return response.data
+  })
+
   const connectMutation = useMutation(
-    (data: { ip_address: string; port?: number; username?: string; password?: string }) =>
+    (data: {
+      ip_address: string
+      port?: number
+      username?: string
+      password?: string
+      location_id?: number
+    }) =>
       apiClient.post('/cameras/connect', null, {
         params: data,
       }),
@@ -69,6 +81,7 @@ function Cameras() {
       port: raw.port ? Number(raw.port) : 80,
       username: raw.username as string,
       password: raw.password as string,
+      location_id: raw.location_id ? Number(raw.location_id) : undefined,
     }
     connectMutation.mutate(payload)
   }
@@ -142,6 +155,25 @@ function Cameras() {
                 type="password"
                 autoComplete="new-password"
               />
+              <TextField
+                name="location_id"
+                label="Joylashuv"
+                fullWidth
+                select
+                required
+                value={locationId}
+                onChange={(e) => setLocationId(e.target.value)}
+                SelectProps={{ native: true }}
+              >
+                <option value="" disabled>
+                  Joylashuvni tanlang
+                </option>
+                {locations?.map((loc: any) => (
+                  <option key={loc.id} value={loc.id}>
+                    {loc.name}
+                  </option>
+                ))}
+              </TextField>
             </Box>
           </DialogContent>
           <DialogActions sx={{ p: 2 }}>
