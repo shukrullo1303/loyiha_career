@@ -35,4 +35,19 @@ apiClient.interceptors.response.use(
   }
 )
 
+// Location endpoints:
+// GET /locations/ - barcha locationlar
+// POST /locations/ - location qo'shish
+// PUT /locations/{id}/ - location tahrirlash
+// DELETE /locations/{id}/ - location o'chirish
+// GET /locations/{id}/cameras/ - locationga biriktirilgan kameralar
+// POST /locations/{id}/cameras/ - locationga kamera biriktirish
+// DELETE /locations/{id}/cameras/{camera_id}/ - locationdan kamerani ajratish
+
+// Camera endpoints:
+// GET /cameras/ - barcha kameralar
+// POST /cameras/ - kamera qo'shish
+// PUT /cameras/{id}/ - kamera tahrirlash
+// DELETE /cameras/{id}/ - kamera o'chirish
+
 export default apiClient

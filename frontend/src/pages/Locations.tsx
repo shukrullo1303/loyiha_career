@@ -1,10 +1,26 @@
 import React, { useState } from 'react'
 import { useQuery, useMutation, useQueryClient } from 'react-query'
 import {
-  Box, Typography, Table, TableBody, TableCell, TableContainer,
-  TableHead, TableRow, Paper, Chip, IconButton, Button,
-  Dialog, DialogTitle, DialogContent, DialogActions, TextField,
-  CircularProgress, Alert
+  Box,
+  Typography,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Chip,
+  IconButton,
+  Button,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  TextField,
+  CircularProgress,
+  Alert,
+  MenuItem,
 } from '@mui/material'
 import { Edit, Delete, Add as AddIcon } from '@mui/icons-material'
 import apiClient from '../api/client'
@@ -153,6 +169,7 @@ function Locations() {
                 name="address"
                 label="Manzil"
                 fullWidth
+                required
                 defaultValue={selectedLocation?.address || ''}
               />
               <TextField
@@ -162,12 +179,22 @@ function Locations() {
                 defaultValue={selectedLocation?.tax_id || ''}
               />
               <TextField
+                select
                 name="location_type"
                 label="Turi"
-                placeholder="Masalan: Office, Store"
                 fullWidth
-                defaultValue={selectedLocation?.location_type || ''}
-              />
+                required
+                defaultValue={selectedLocation?.location_type || 'other'}
+              >
+                <MenuItem value="cafe">Kafe</MenuItem>
+                <MenuItem value="restaurant">Restoran</MenuItem>
+                <MenuItem value="tea_house">Choyxona</MenuItem>
+                <MenuItem value="hair_salon">Sartaroshxona</MenuItem>
+                <MenuItem value="car_wash">Avtoyuvish</MenuItem>
+                <MenuItem value="service_center">Servis markaz</MenuItem>
+                <MenuItem value="household_service">Maishiy xizmat</MenuItem>
+                <MenuItem value="other">Boshqa</MenuItem>
+              </TextField>
             </Box>
           </DialogContent>
           <DialogActions sx={{ p: 2 }}>
