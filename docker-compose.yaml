@@ -34,13 +34,10 @@ services:
   frontend:
     build: ./frontend
     ports:
-      - "3000:3000"   # Tashqarida ham, ichkarida ham bir xil bo'lsin
-    volumes:
-      - ./frontend:/app
-      - /app/node_modules
+      - "3000:3000"
     environment:
-      - VITE_API_URL=http://localhost:8000/api/v1
-      - VITE_PORT=3000 # Vite'ga aynan shu portni ishlatishni buyuramiz
+      - VITE_API_URL=http://backend:8000/api/v1
+      - VITE_PORT=3000
     depends_on:
       - backend
 
