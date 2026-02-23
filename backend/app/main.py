@@ -112,12 +112,16 @@ async def health_check():
     }
 
 
-# API роутерларини улаш
+"""API роутерларини улаш"""
 app.include_router(api_router, prefix="/api/v1")
 
 
 # Frontend build (Vite) ni serve qilish
-FRONTEND_DIST = os.getenv("FRONTEND_DIST", "frontend_dist")
+# 1) Агар FRONTEND_DIST env бор бўлса – ўшанидан фойдаланамиз (Docker/Railway)
+# 2) Акс ҳолда монореподаги ../frontend/dist ни автоматик топамиз
+backend_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+default_frontend_dist = os.path.join(backend_root, "..", "frontend", "dist")
+FRONTEND_DIST = os.getenv("FRONTEND_DIST", default_frontend_dist)
 
 # Vite build ichidagi assets katalogini statik qilib ulaymiz
 if os.path.isdir(os.path.join(FRONTEND_DIST, "assets")):
