@@ -7,6 +7,7 @@ import CssBaseline from '@mui/material/CssBaseline'
 
 import Layout from './components/Layout'
 import Login from './pages/Login'
+import Register from './pages/Register'
 import Dashboard from './pages/Dashboard'
 import Locations from './pages/Locations'
 import Analytics from './pages/Analytics'
@@ -40,6 +41,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
             <Route
               path="/"
               element={
