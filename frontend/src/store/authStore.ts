@@ -32,10 +32,14 @@ export const useAuthStore = create<AuthState>()(
         const formData = new URLSearchParams()
         formData.append('username', username)
         formData.append('password', password)
-        // grant_type maydonini ham yuboramiz, aks holda 422 bo'ladi
+        // grant_type ixtiyoriy, lekin yuborsak ham bo'ladi
         formData.append('grant_type', 'password')
 
-        const response = await apiClient.post('auth/login', formData)
+        const response = await apiClient.post('auth/login', formData, {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+        })
 
         const { access_token } = response.data
 
