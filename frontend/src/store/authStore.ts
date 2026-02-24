@@ -2,8 +2,6 @@ import { create } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
 import apiClient from '../api/client'
 
-const API_URL = import.meta.env.VITE_API_URL;
-
 interface User {
   id: number
   username: string
@@ -28,20 +26,17 @@ export const useAuthStore = create<AuthState>()(
       token: null,
       isAuthenticated: false,
       login: async (username: string, password: string) => {
-        const formData = new FormData()
+        // FastAPI OAuth2PasswordRequestForm URL-encoded body kutadi
+        const formData = new URLSearchParams()
         formData.append('username', username)
         formData.append('password', password)
 
-        const response = await apiClient.post('/auth/login', formData, {
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-          },
-        })
+        const response = await apiClient.post('auth/login', formData)
 
         const { access_token } = response.data
 
         // Фойдаланувчи маълумотларини олиш
-        const userResponse = await apiClient.get('/auth/me', {
+        const userResponse = await apiClient.get('auth/me', {
           headers: {
             Authorization: `Bearer ${access_token}`,
           },
