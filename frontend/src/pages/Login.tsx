@@ -28,7 +28,17 @@ function Login() {
       toast.success('Муваффақиятли кирилди')
       navigate('/')
     } catch (error: any) {
-      toast.error(error.response?.data?.detail || 'Хатолик юз берди')
+      const detail = error?.response?.data?.detail
+      // FastAPI validation xatolarida detail ko'pincha massiv bo'ladi
+      let message: string = 'Хатолик юз берди'
+      if (Array.isArray(detail) && detail.length > 0) {
+        message = `${detail[0].loc?.join?.('.') || ''}: ${detail[0].msg}`
+      } else if (typeof detail === 'string') {
+        message = detail
+      } else if (error.message) {
+        message = error.message
+      }
+      toast.error(message)
     } finally {
       setLoading(false)
     }
