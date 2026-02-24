@@ -4,11 +4,13 @@ import axios from 'axios'
 import { useAuthStore } from '../store/authStore'
 
 
-const API_URL = import.meta.env.VITE_API_URL
+// VITE_API_URL bo'lmasa ham build ishlashi uchun default qiymat
+const RAW_API_URL = import.meta.env.VITE_API_URL || '/api/v1'
+const API_URL = RAW_API_URL.endsWith('/') ? RAW_API_URL : `${RAW_API_URL}/`
 
 
 const apiClient = axios.create({
-  baseURL: API_URL.endsWith('/') ? API_URL : `${API_URL}/`,
+  baseURL: API_URL,
   headers: {
     'Content-Type': 'application/json',
   },
