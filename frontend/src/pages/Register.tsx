@@ -26,7 +26,7 @@ const Register = () => {
     
     try {
       // Backend manzili va endpointni tekshiring
-      await apiClient.post('/auth/register', formData);
+      await apiClient.post('auth/register', formData);
       
       toast.success("Muvaffaqiyatli ro'yxatdan o'tdingiz!");
       navigate('/login');

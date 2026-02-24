@@ -26,12 +26,12 @@ function Cameras() {
   const [locationId, setLocationId] = useState<string>('')
 
   const { data: cameras, isLoading, isError } = useQuery('cameras', async () => {
-    const response = await apiClient.get('/cameras/')
+    const response = await apiClient.get('cameras/')
     return response.data
   })
 
   const { data: locations } = useQuery('locations', async () => {
-    const response = await apiClient.get('/locations/')
+    const response = await apiClient.get('locations/')
     return response.data
   })
 
@@ -43,7 +43,7 @@ function Cameras() {
       password?: string
       location_id?: number
     }) =>
-      apiClient.post('/cameras/connect', null, {
+      apiClient.post('cameras/connect', null, {
         params: data,
       }),
     {

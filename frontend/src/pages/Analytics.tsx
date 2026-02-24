@@ -28,7 +28,7 @@ function Analytics() {
   const [locationId, setLocationId] = useState<number | ''>('')
 
   const { data: locations } = useQuery('locations', async () => {
-    const response = await apiClient.get('/locations/')
+    const response = await apiClient.get('locations/')
     return response.data
   })
 

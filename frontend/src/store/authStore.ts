@@ -32,7 +32,7 @@ export const useAuthStore = create<AuthState>()(
         formData.append('username', username)
         formData.append('password', password)
 
-        const response = await apiClient.post('/auth/login', formData, {
+        const response = await apiClient.post('auth/login', formData, {
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
           },
@@ -41,7 +41,7 @@ export const useAuthStore = create<AuthState>()(
         const { access_token } = response.data
 
         // Фойдаланувчи маълумотларини олиш
-        const userResponse = await apiClient.get('/auth/me', {
+        const userResponse = await apiClient.get('auth/me', {
           headers: {
             Authorization: `Bearer ${access_token}`,
           },

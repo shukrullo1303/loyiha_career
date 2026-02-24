@@ -52,7 +52,7 @@ function Locations() {
   const { data: locations, isLoading, isError } = useQuery<Location[]>(
     'locations',
     async () => {
-      const response = await apiClient.get('/locations/')
+      const response = await apiClient.get('locations/')
       return response.data
     }
   )
@@ -65,7 +65,7 @@ function Locations() {
         return apiClient.put(`/locations/${selectedLocation.id}/`, data)
       } else {
         // Agar selectedLocation bo'lmasa - POST (Create)
-        return apiClient.post('/locations/', data)
+        return apiClient.post('locations/', data)
       }
     },
     {

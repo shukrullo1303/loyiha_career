@@ -19,7 +19,7 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsi
 
 function Dashboard() {
   const { data: locations } = useQuery('locations', async () => {
-    const response = await apiClient.get('/locations/')
+    const response = await apiClient.get('locations/')
     return response.data
   })
 
