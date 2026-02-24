@@ -94,7 +94,13 @@ async def global_exception_handler(request: Request, exc: Exception):
 
 @app.get("/")
 async def root():
-    """Асосий эндпоинт"""
+    """Асосий эндпоинт – аввало frontend SPA ни беради"""
+    # Агар frontend build бор бўлса, index.html ни қайтарамиз
+    index_path = os.path.join(FRONTEND_DIST, "index.html")
+    if os.path.exists(index_path):
+        return FileResponse(index_path)
+
+    # Акс ҳолда, олдинги API маълумотини қайтарамиз
     return {
         "message": "Digital Service Platform API",
         "version": "1.0.0",

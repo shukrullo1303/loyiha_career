@@ -13,3 +13,4 @@ api_router.include_router(employees.router, prefix="/employees", tags=["Employee
 api_router.include_router(analytics.router, prefix="/analytics", tags=["Analytics"])
 api_router.include_router(cameras.router, prefix="/cameras", tags=["Cameras"])
 api_router.include_router(integrations.router, prefix="/integrations", tags=["Integrations"])
+
