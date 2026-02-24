@@ -5,8 +5,9 @@ import { useAuthStore } from '../store/authStore'
 
 
 // VITE_API_URL bo'lmasa ham build ishlashi uchun default qiymat
-const RAW_API_URL = import.meta.env.VITE_API_URL || '/api/v1'
-const API_URL = RAW_API_URL.endsWith('/') ? RAW_API_URL : `${RAW_API_URL}/`
+// const RAW_API_URL = import.meta.env.VITE_API_URL || '/api/v1'
+// const API_URL = RAW_API_URL.endsWith('/') ? RAW_API_URL : `${RAW_API_URL}/`
+const API_URL = import.meta.env.VITE_API_URL
 
 
 const apiClient = axios.create({
