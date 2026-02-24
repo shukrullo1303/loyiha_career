@@ -62,7 +62,7 @@ function Locations() {
     (data) => {
       if (selectedLocation) {
         // Agar selectedLocation bo'lsa - PUT (Update)
-        return apiClient.put(`/locations/${selectedLocation.id}/`, data)
+        return apiClient.put(`locations/${selectedLocation.id}/`, data)
       } else {
         // Agar selectedLocation bo'lmasa - POST (Create)
         return apiClient.post('locations/', data)
@@ -81,7 +81,7 @@ function Locations() {
 
   // 3. DELETE - O'chirish
   const deleteMutation = useMutation<void, any, number>(
-    (id) => apiClient.delete(`/locations/${id}/`),
+    (id) => apiClient.delete(`locations/${id}/`),
     {
       onSuccess: () => {
         queryClient.invalidateQueries('locations')

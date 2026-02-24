@@ -4,8 +4,19 @@ import axios from 'axios'
 import { useAuthStore } from '../store/authStore'
 
 
-// VITE_API_URL bo'lmasa ham build ishlashi uchun default qiymat
-const RAW_API_URL = import.meta.env.VITE_API_URL || '/api/v1'
+// Bazaviy API URL
+let RAW_API_URL = import.meta.env.VITE_API_URL || '/api/v1'
+
+// Dev rejimda Vite (3000) emas, backendga urilishini ta'minlaymiz
+if (import.meta.env.DEV && typeof window !== 'undefined') {
+  const origin = window.location.origin
+  // Agar frontend http://localhost:3000 dan ishlayotgan bo'lsa,
+  // backendni standart FastAPI portiga yo'naltiramiz
+  if (origin.includes('localhost:3000')) {
+    RAW_API_URL = 'http://localhost:8000/api/v1'
+  }
+}
+
 // Oxirida / bilan normalizatsiya qilamiz
 const API_URL = RAW_API_URL.endsWith('/') ? RAW_API_URL : `${RAW_API_URL}/`
 
